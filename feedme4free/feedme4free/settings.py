@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,6 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # Our apps
+    'api_poller.apps.ApiPollerConfig',
+    'djcelery',
+    # Default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,3 +128,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# CELERY SETTINGS
+
+djcelery.setup_loader()
+
+
+BROKER_URL = 'redis://127.0.0.1:6379/0'
+BROKER_TRANSPORT = 'redis'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+# Twitter API authentication
+SOCIAL_AUTH_TWITTER_KEY = 'S7xuJnpcV4MHB8knS2ZJZUoJi'
+
+SOCIAL_AUTH_TWITTER_SECRET = 'IbKVPCoTTHpbYmqcCC2CEvmvCdMMm31iVC1Zp5E3uJvGxWRdVC'
+
+TWITTER_ACCESS_TOKEN = '296463049-q1VC30nsaoZkG6wgTSjEaTfyTd4XwiWeCk3hn5Sj'
+
+TWITTER_ACCESS_TOKEN_SECRET = '5Ey2rGDPMLO6RZFLFwNy07i6hQ0p2o7vXCKO8LSjZU52R'
